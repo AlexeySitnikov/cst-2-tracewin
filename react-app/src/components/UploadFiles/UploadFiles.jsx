@@ -1,11 +1,10 @@
 import { useRef } from 'react'
-// import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import style from './style.module.css'
-// import { setSelectedFiles, show } from '../../Redux/Slices/selectedFiles/selectedFilesSlice'
+import { setSelectedFiles } from '../../Redux/Slices/selectedFiles/selectedFilesSlice'
 
 export function UploadFiles() {
-  // const selectedFiles = useSelector((store) => store.selectedFiles)
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const pickerRef = useRef(null)
 
   const pickFileHandler = () => {
@@ -13,11 +12,7 @@ export function UploadFiles() {
   }
 
   const clickHandlerFileChange = (e) => {
-    console.log(Array.from(e.target.files))
-    // console.log(selectedFiles)
-    // Array.from(e.target.files).forEach((file) => (dispatch(setSelectedFiles(file))))
-    // dispatch(setSelectedFiles([...]))
-    // dispatch(show())
+    dispatch(setSelectedFiles(Array.from(e.target.files).map((file) => ({ file }))))
   }
 
   return (

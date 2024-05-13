@@ -5,16 +5,14 @@ export const selectedFilesSlice = createSlice({
   initialState: [],
   reducers: {
     setSelectedFiles(state, action) {
-      state.push(action.payload)
-    },
-    show(state) {
-      console.log(state)
+      state.splice(0, state.length)
+      state.push(...action.payload)
     },
   },
 })
 
 export const {
-  setSelectedFiles, show,
+  setSelectedFiles,
 } = selectedFilesSlice.actions
 
 export const selectedFilesReducer = selectedFilesSlice.reducer
