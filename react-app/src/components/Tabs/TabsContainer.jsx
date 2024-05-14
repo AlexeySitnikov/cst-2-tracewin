@@ -4,14 +4,12 @@ import { TabNavItem } from './TabNavItem'
 import style from './style.module.css'
 import { FileInformation } from './FileInformation'
 
-export function TabsContainer({
-  activeTab, setActiveTab,
-}) {
-  const selectedFiles = useSelector((store) => store.selectedFiles)
+export function TabsContainer({ activeTab, setActiveTab }) {
+  const analyzedFiles = useSelector((store) => store.analyzedFiles)
   return (
     <div className={style.Tabs}>
       <ul className={style.nav}>
-        {selectedFiles.map((_, index) => (
+        {analyzedFiles.map((_, index) => (
           <TabNavItem
             title={`File ${index + 1}`}
             id={`tab${index}`}
@@ -23,17 +21,20 @@ export function TabsContainer({
       </ul>
 
       <div className={style.outlet}>
-        {selectedFiles.map((file, index) => (
-          <TabContent
-            id={`tab${index}`}
-            activeTab={activeTab}
-            key={crypto.randomUUID()}
-          >
-            <FileInformation
-              file={file}
-            />
-          </TabContent>
-        ))}
+        {
+          analyzedFiles.map((file, index) => (
+            <TabContent
+              id={`tab${index}`}
+              activeTab={activeTab}
+              key={crypto.randomUUID()}
+            >
+              <FileInformation
+                file={file}
+              />
+            </TabContent>
+          ))
+         }
+
       </div>
     </div>
   )

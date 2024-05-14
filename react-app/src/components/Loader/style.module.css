@@ -3,7 +3,8 @@
 .lds_spinner div,
 .lds_spinner div:after {
   box-sizing: border-box;
-  color: rgb(0, 78, 154, 1);
+  /* color: rgb(0, 78, 154, 1); */
+  color: beige;
 }
 .lds_spinner {
   color: currentcolor;

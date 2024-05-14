@@ -15,6 +15,7 @@ export function FileInformationHeader({ file }) {
             min="1"
             max="100"
             lang="en-US"
+            defaultValue={file.fileOrder}
           />
         </label>
       </div>
@@ -29,6 +30,7 @@ export function FileInformationHeader({ file }) {
             min="1"
             max="100"
             lang="en-US"
+            defaultValue={file.linesToBePreload}
           />
         </label>
       </div>
@@ -43,6 +45,7 @@ export function FileInformationHeader({ file }) {
             name="Count"
             min="0"
             max="100"
+            defaultValue={file.linesToBeDeleted}
             lang="en-US"
           />
         </label>

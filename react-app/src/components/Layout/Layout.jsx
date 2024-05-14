@@ -7,7 +7,7 @@ export function Layout() {
       <header>
         <Link to="/">Pick up files</Link>
         <Link to="/read">Pre-read files</Link>
-        <Link to="/analyze">Analyze files</Link>
+        <Link to="/analyze">Additional data</Link>
         <Link to="/make">Make output files</Link>
       </header>
       <Outlet />
