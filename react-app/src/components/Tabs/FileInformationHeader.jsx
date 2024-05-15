@@ -1,6 +1,18 @@
+import { useDispatch, useSelector } from 'react-redux'
 import style from './style.module.css'
+import { changeLinesToBePreloaded } from '../../Redux/Slices/setings/settingsSlice'
 
 export function FileInformationHeader({ file }) {
+  const settings = useSelector((store) => store.settings)
+  const dispatch = useDispatch()
+
+  const onChangeLinesToBePreloadHandler = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    console.log(e.target.value)
+    dispatch(changeLinesToBePreloaded(e.target.value))
+  }
+
   return (
     <div>
       <p>{`File name: ${file.file.name}`}</p>
@@ -30,7 +42,8 @@ export function FileInformationHeader({ file }) {
             min="1"
             max="100"
             lang="en-US"
-            defaultValue={file.linesToBePreload}
+            defaultValue={settings.linesToBePreload}
+            onChange={onChangeLinesToBePreloadHandler}
           />
         </label>
       </div>

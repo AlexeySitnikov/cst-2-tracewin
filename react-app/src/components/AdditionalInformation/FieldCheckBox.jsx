@@ -1,25 +1,26 @@
-import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import style from './style.module.css'
+import { changeField } from '../../Redux/Slices/setings/settingsSlice'
 
 export function FieldCheckBox() {
-  const [field, setField] = useState(true)
+  const settings = useSelector((store) => store.settings)
+  const dispatch = useDispatch()
 
   const onChangeCheckBoxHandler = () => {
-    if (!field) { console.log('EField') } else { console.log('BField') }
-    setField(!field)
+    dispatch(changeField())
   }
 
   return (
     <div className={style.EOrBFieldCheckBox}>
       <p>
         <label htmlFor="EField">
-          <input type="checkbox" id="EField" onChange={onChangeCheckBoxHandler} checked={field} />
+          <input type="checkbox" id="EField" onChange={onChangeCheckBoxHandler} checked={settings.field === 'EField'} />
           E field
         </label>
       </p>
       <p>
         <label htmlFor="BField">
-          <input type="checkbox" id="BField" onChange={onChangeCheckBoxHandler} checked={!field} />
+          <input type="checkbox" id="BField" onChange={onChangeCheckBoxHandler} checked={settings.field === 'BField'} />
           B field
         </label>
       </p>

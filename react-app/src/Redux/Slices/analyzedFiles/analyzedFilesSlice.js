@@ -18,8 +18,6 @@ export const analyzedFilesSlice = createSlice({
             linesToBeDeleted: element.linesToBeDeleted,
             path: element.path,
             type: element.type,
-            linesToBePreload: element.linesToBePreload,
-            field: 'EField',
           }
           state.push(data)
         }

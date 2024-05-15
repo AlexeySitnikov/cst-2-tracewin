@@ -1,6 +1,7 @@
 import style from './style.module.css'
 import { FieldCheckBox } from './FieldCheckBox'
 import { AdditionalInformationCheckBox } from './AdditionalInformationCheckBox'
+import { AdditionalInformationData } from './AddInformationData'
 
 export function AdditionalInformation() {
   return (
@@ -13,6 +14,7 @@ export function AdditionalInformation() {
       <br />
       <FieldCheckBox />
       <br />
+      <AdditionalInformationData />
     </div>
   )
 }

@@ -25,7 +25,6 @@ export function sniffFile(file, index, stringsToSniff) {
             linesToBeDeleted,
             fileOrder: index + 1,
             type,
-            linesToBePreload: stringsToSniff,
           })
         })
         .catch((er) => reject(er))
