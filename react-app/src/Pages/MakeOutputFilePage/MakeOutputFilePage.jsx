@@ -37,7 +37,7 @@ export function MakeOutputFilePage() {
     }
   }, [wsConnection])
 
-  if (Object.keys(body).length !== 0) {
+  if (!loader) {
     return (
       <div className={style.finalButtons}>
         {wsConnection

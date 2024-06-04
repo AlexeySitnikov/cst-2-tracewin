@@ -4,10 +4,7 @@ import { SelectedFilesContext } from '../../contexts/SelectedFilesContext'
 
 export function getLinesByNumber(file, index) {
   const { selectedFiles } = useContext(SelectedFilesContext)
-  console.log(file)
-  console.log(selectedFiles)
   const currentIndex = selectedFiles.findIndex((el) => el.file.name === file.file)
-  console.log(currentIndex)
   return (
     new Promise((resolve, reject) => {
       let lineCount = 0
