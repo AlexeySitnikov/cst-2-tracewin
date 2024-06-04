@@ -15,7 +15,7 @@ export function FileInformationHeader({ file }) {
 
   return (
     <div>
-      <p>{`File name: ${file.file.name}`}</p>
+      <p>{`File name: ${file.file}`}</p>
       <div>
         <label htmlFor="fileOrder">
           Is it correct file order?

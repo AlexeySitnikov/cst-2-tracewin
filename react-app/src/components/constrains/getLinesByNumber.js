@@ -1,13 +1,20 @@
+import { useContext } from 'react'
 import { TxtReader } from 'txt-reader'
+import { SelectedFilesContext } from '../../contexts/SelectedFilesContext'
 
 export function getLinesByNumber(file, index) {
+  const { selectedFiles } = useContext(SelectedFilesContext)
+  console.log(file)
+  console.log(selectedFiles)
+  const currentIndex = selectedFiles.findIndex((el) => el.file.name === file.file)
+  console.log(currentIndex)
   return (
     new Promise((resolve, reject) => {
       let lineCount = 0
       let responce = {}
       const startLine = file.linesToBeDeleted ? file.linesToBeDeleted + 1 : 1
       const reader = new TxtReader()
-      reader.loadFile(file.file).progress((progress) => {
+      reader.loadFile(selectedFiles[currentIndex].file).progress((progress) => {
         if (index === 0) {
           console.log(Math.round(progress))
         }
