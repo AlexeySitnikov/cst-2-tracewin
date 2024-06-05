@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { TxtReader } from 'txt-reader'
 import { SelectedFilesContext } from '../../contexts/SelectedFilesContext'
 
-export function getLinesByNumber(file, index) {
+export function getLinesByNumber(file, index, setPercentage) {
   const { selectedFiles } = useContext(SelectedFilesContext)
   const currentIndex = selectedFiles.findIndex((el) => el.file.name === file.file)
   return (
@@ -13,7 +13,7 @@ export function getLinesByNumber(file, index) {
       const reader = new TxtReader()
       reader.loadFile(selectedFiles[currentIndex].file).progress((progress) => {
         if (index === 0) {
-          console.log(Math.round(progress))
+          setPercentage(Math.round(progress))
         }
       })
         .then((r) => {
@@ -32,7 +32,7 @@ export function getLinesByNumber(file, index) {
         .then(() => {
           if (index === 0) {
             reader.getLines(startLine, Math.round(lineCount / 10))
-              .progress((progress) => (console.log(Math.round(progress))))
+              .progress((progress) => (setPercentage(Math.round(progress))))
               .then((lines) => {
                 responce = { ...responce, lines }
                 resolve(responce)

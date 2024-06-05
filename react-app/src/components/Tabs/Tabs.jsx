@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import { TabsContainer } from './TabsContainer'
 
 export function Tabs() {
@@ -11,7 +11,7 @@ export function Tabs() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
       />
-      <Link to="/analyze">Next</Link>
+      {/* <Link to="/analyze">Next</Link> */}
     </>
   )
 }

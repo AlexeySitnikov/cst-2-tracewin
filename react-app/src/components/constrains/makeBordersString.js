@@ -1,4 +1,4 @@
-export function makeBordersString({ borders }) {
+export function makeBordersString(borders) {
   if (borders.type === '3D') {
     return (`${String((borders.Zmax - borders.Zmin) / borders.deltaZ)} ${String((borders.Zmax - borders.Zmin) / 1000)}
 ${String((borders.Xmax - borders.Xmin) / borders.deltaX)} ${String(borders.Xmin / 1000)} ${String(borders.Xmax / 1000)}

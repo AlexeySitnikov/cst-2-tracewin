@@ -2,10 +2,10 @@ import { getDeltaXYZ } from './getDeltaXYZ'
 import { getLinesByNumber } from './getLinesByNumber'
 import { sortFilesOrder } from './sortFilesOrder'
 
-export async function analizeBorders(files) {
+export async function analizeBorders(files, setPercentage) {
   const fullXYZ = await Promise.all([...(sortFilesOrder(files))
     .filter((_, index) => ((index === 0) || (index === (files).length - 1)))
-    .map((file, index) => (getLinesByNumber(file, index)
+    .map((file, index) => (getLinesByNumber(file, index, setPercentage)
     )),
   ])
 

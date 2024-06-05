@@ -1,17 +1,23 @@
 import { useDispatch } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useContext, useEffect } from 'react'
 import { Tabs } from '../../components/Tabs/Tabs'
 import style from './style.module.css'
 import { sniffFiles } from '../../components/constrains/sniffFiles'
 import { setAnalyzedFiles } from '../../Redux/Slices/analyzedFiles/analyzedFilesSlice'
 import { SelectedFilesContext } from '../../contexts/SelectedFilesContext'
+import { Button } from '../../components/Buttons/Button'
 
 export function PreReadFilesPage() {
   // const selectedFiles = useSelector((store) => store.selectedFiles)
   const { selectedFiles } = useContext(SelectedFilesContext)
   const dispatch = useDispatch()
   const stringsToSniff = 5
+  const navigate = useNavigate()
+
+  const onNextClickButtonFunction = () => {
+    navigate('/analyze')
+  }
 
   useEffect(() => {
     async function functionToSniffFiles() {
@@ -30,7 +36,10 @@ export function PreReadFilesPage() {
 
   if (selectedFiles.length > 0) {
     return (
-      <Tabs />
+      <div className={style.container}>
+        <Tabs />
+        {(selectedFiles.length > 0) ? <Button buttonName="Next" onClickFunction={onNextClickButtonFunction} /> : null}
+      </div>
     )
   }
   return (

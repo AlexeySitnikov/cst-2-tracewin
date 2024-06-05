@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 export const bordersSlice = createSlice({
   name: 'borders',
-  initialState: '',
+  initialState: null,
 
   reducers: {
     setBorderString(state, action) {

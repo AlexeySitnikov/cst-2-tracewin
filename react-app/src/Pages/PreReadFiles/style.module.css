@@ -46,3 +46,9 @@
 .rows{
   margin-top: 12px;
 }
+
+.container{
+  padding-top: 24px;
+  display: flex;
+  flex-direction: column;
+}
