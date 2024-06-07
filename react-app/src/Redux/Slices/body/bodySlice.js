@@ -9,12 +9,14 @@ export const bodySlice = createSlice({
     setBody(state, action) {
       return action.payload
     },
-
+    resetBody() {
+      return {}
+    },
   },
 })
 
 export const {
-  setBody,
+  setBody, resetBody,
 } = bodySlice.actions
 
 export const bodyReducer = bodySlice.reducer

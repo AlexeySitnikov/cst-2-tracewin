@@ -8,11 +8,17 @@ export const bordersSlice = createSlice({
     setBorderString(state, action) {
       return action.payload
     },
+    getBorderString(state) {
+      return state
+    },
+    resetBorders() {
+      return null
+    },
   },
 })
 
 export const {
-  setBorderString,
+  setBorderString, getBorderString, resetBorders,
 } = bordersSlice.actions
 
 export const bordersReducer = bordersSlice.reducer

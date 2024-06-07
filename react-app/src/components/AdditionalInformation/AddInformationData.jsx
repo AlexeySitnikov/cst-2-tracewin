@@ -1,10 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useState } from 'react'
-import { analizeBorders } from '../constrains/analizeBorders'
-import { makeBordersString } from '../constrains/makeBordersString'
-// import { Loader } from '../Loader/Loader'
 import style from './style.module.css'
-import { setBorderString } from '../../Redux/Slices/borders/bordersSlice'
 import { setBody } from '../../Redux/Slices/body/bodySlice'
 import { ProgressBar } from '../ProgressBar/ProgressBar'
 
@@ -12,15 +7,8 @@ export function AdditionalInformationData() {
   const borderString = useSelector((store) => store.borders)
   const analyzedFiles = useSelector((store) => store.analyzedFiles)
   const settings = useSelector((store) => store.settings)
+  const progressBar = useSelector((store) => store.progressBar)
   const dispatch = useDispatch()
-  const [percentage, setPercentage] = useState(0)
-
-  if (!borderString && percentage === 0) {
-    analizeBorders(analyzedFiles, setPercentage)
-      .then((result) => {
-        dispatch(setBorderString(makeBordersString(result)))
-      })
-  }
 
   if (borderString) {
     const body = {
@@ -44,16 +32,12 @@ export function AdditionalInformationData() {
   }
 
   return (
-    <>
+    <div className={style.container}>
       <br />
       <ProgressBar
         name="Reading files"
-        filled={percentage}
+        filled={progressBar}
       />
-    </>
-
-  // <div className={style.additionalInformation}>
-  //   <Loader />
-  // </div>
+    </div>
   )
 }

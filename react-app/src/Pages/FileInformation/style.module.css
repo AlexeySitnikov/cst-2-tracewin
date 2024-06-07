@@ -144,3 +144,14 @@
     color: #E8F0F2;
     background: rgba(50, 224, 196, 0.15);
   }
+
+  .container{
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .buttonsContainer{
+    display: flex;
+    justify-content: center;
+  }

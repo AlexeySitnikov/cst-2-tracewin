@@ -23,11 +23,14 @@ export const analyzedFilesSlice = createSlice({
         }
       })
     },
+    resetAnalyzedFiles() {
+      return []
+    },
   },
 })
 
 export const {
-  setAnalyzedFiles,
+  setAnalyzedFiles, resetAnalyzedFiles,
 } = analyzedFilesSlice.actions
 
 export const analyzedFilesReducer = analyzedFilesSlice.reducer

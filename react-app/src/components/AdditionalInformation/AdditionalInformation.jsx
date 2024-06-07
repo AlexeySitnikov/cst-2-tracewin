@@ -1,10 +1,24 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import style from './style.module.css'
 import { FieldCheckBox } from './FieldCheckBox'
 import { AdditionalInformationCheckBox } from './AdditionalInformationCheckBox'
 import { AdditionalInformationData } from './AddInformationData'
+import { Button } from '../Buttons/Button'
 
 export function AdditionalInformation() {
+  const borderString = useSelector((store) => store.borders)
+
+  const navigate = useNavigate()
+
+  const onNextClickHandler = () => {
+    navigate('/make')
+  }
+
+  const onBackClickHandler = () => {
+    navigate('/read')
+  }
+
   return (
     <>
       <div className={style.Tabs}>
@@ -18,7 +32,11 @@ export function AdditionalInformation() {
         <br />
         <AdditionalInformationData />
       </div>
-      <Link to="/make">Next</Link>
+      <div className={style.buttonsContainer}>
+        <Button buttonName="Back" onClickFunction={onBackClickHandler} />
+        {borderString ? <Button buttonName="Next" onClickFunction={onNextClickHandler} /> : null}
+      </div>
+      <br />
     </>
   )
 }

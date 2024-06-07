@@ -1,21 +1,25 @@
 import { useContext, useRef } from 'react'
-// import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import style from './style.module.css'
-// import { setSelectedFiles } from '../../Redux/Slices/selectedFiles/selectedFilesSlice'
 import { SelectedFilesContext } from '../../contexts/SelectedFilesContext'
+import { resetBody } from '../../Redux/Slices/body/bodySlice'
+import { resetBorders } from '../../Redux/Slices/borders/bordersSlice'
+import { resetProgressBar } from '../../Redux/Slices/progressBar/progressBarSlice'
 
 export function UploadFiles() {
-  // const dispatch = useDispatch()
   const pickerRef = useRef(null)
   const { setSelectedFiles } = useContext(SelectedFilesContext)
+  const dispatch = useDispatch()
 
   const pickFileHandler = () => {
     pickerRef.current.click()
   }
 
   const clickHandlerFileChange = (e) => {
-    // dispatch(setSelectedFiles(Array.from(e.target.files).map((file) => ({ file }))))
     setSelectedFiles(Array.from(e.target.files).map((file) => ({ file })))
+    dispatch(resetBody())
+    dispatch(resetBorders())
+    dispatch(resetProgressBar())
   }
 
   return (

@@ -145,11 +145,6 @@
     background: rgba(50, 224, 196, 0.15);
   }
 
-  .buttonsContainer{
-    display: flex;
-    justify-content: center;
-  }
-
   .container{
     display: flex;
     justify-content: center;

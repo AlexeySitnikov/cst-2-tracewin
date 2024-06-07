@@ -1,18 +1,17 @@
-import { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
-import { Button } from '../../components/Buttons/Button'
-import { ProgressBar } from '../../components/ProgressBar/ProgressBar'
-import style from './style.module.css'
-import { useModalWindow } from '../../hooks/useModalWindow'
-import { Modal } from '../../components/Modal/Modal'
+import { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { SelectedFilesContext } from '../../contexts/SelectedFilesContext'
+import { useModalWindow } from '../../hooks/useModalWindow'
 import { resetBody } from '../../Redux/Slices/body/bodySlice'
 import { resetBorders } from '../../Redux/Slices/borders/bordersSlice'
 import { resetProgressBar } from '../../Redux/Slices/progressBar/progressBarSlice'
-import { resetAnalyzedFiles } from '../../Redux/Slices/analyzedFiles/analyzedFilesSlice'
+import { Button } from '../Buttons/Button'
+import { Modal } from '../Modal/Modal'
+import style from './style.module.css'
+import { ProgressBar } from '../ProgressBar/ProgressBar'
 
-export function MakeOutputFilePage() {
+export function DowloadFiles() {
   const body = useSelector((store) => store.body)
   const { setSelectedFiles } = useContext(SelectedFilesContext)
 
@@ -28,7 +27,6 @@ export function MakeOutputFilePage() {
 
   const resetFunction = () => {
     setSelectedFiles([])
-    dispatch(resetAnalyzedFiles())
     dispatch(resetBody())
     dispatch(resetBorders())
     dispatch(resetProgressBar())
@@ -52,51 +50,31 @@ export function MakeOutputFilePage() {
         } else if (message.data === '"done"') {
           setIsModalOpen(true)
           setContent(<Button buttonName="Done" onClickFunction={resetFunction} />)
-          // resetFunction()
           setLoader(false)
         }
-        //  else {
-        //   console.log(message.data)
-        // }
       }
     }
   }, [wsConnection])
 
+  makeWebSocketFetch()
+
   if (!loader) {
     return (
-      <>
-        <Modal
-          isOpen={isModalOpen}
-          closeModal={closeModalClickHandler}
-        >
-          {content}
-        </Modal>
-        <div className={style.finalButtons}>
-          {wsConnection
-            ? (
-              <Button
-                buttonName="Make output files"
-                onClickFunction={makeWebSocketFetch}
-              />
-            ) : null}
-        </div>
-      </>
+      <Modal isOpen={isModalOpen} closeModal={closeModalClickHandler}>
+        {content}
+      </Modal>
     )
   }
 
   if (loader) {
     return (
-      <>
+      <div className={style.container}>
         <br />
         <ProgressBar
           name="Reading files"
           filled={percentage}
         />
-      </>
+      </div>
     )
   }
-
-  return (
-    <Link to="/">Go back</Link>
-  )
 }
