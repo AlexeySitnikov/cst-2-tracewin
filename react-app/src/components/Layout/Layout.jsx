@@ -1,14 +1,14 @@
-import { Link, Outlet } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
 import './style.module.css'
 
 export function Layout() {
   return (
     <>
       <header>
-        <Link to="/">Pick up files</Link>
-        <Link to="/read">Pre-read files</Link>
-        <Link to="/analyze">Additional data</Link>
-        <Link to="/make">Make output files</Link>
+        <NavLink to="/">Pick up files</NavLink>
+        <NavLink to="/read">Pre-read files</NavLink>
+        <NavLink to="/analyze">Additional data</NavLink>
+        <NavLink to="/make">Make output files</NavLink>
       </header>
       <Outlet />
     </>

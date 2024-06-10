@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '../../components/Buttons/Button'
-import { ProgressBar } from '../../components/ProgressBar/ProgressBar'
+// import { ProgressBar } from '../../components/ProgressBar/ProgressBar'
 import style from './style.module.css'
 import { useModalWindow } from '../../hooks/useModalWindow'
-import { Modal } from '../../components/Modal/Modal'
+// import { Modal } from '../../components/Modal/Modal'
 import { SelectedFilesContext } from '../../contexts/SelectedFilesContext'
 import { resetBody } from '../../Redux/Slices/body/bodySlice'
 import { resetBorders } from '../../Redux/Slices/borders/bordersSlice'
@@ -16,15 +16,17 @@ export function MakeOutputFilePage() {
   const body = useSelector((store) => store.body)
   const { setSelectedFiles } = useContext(SelectedFilesContext)
 
-  const [loader, setLoader] = useState(false)
-  const [percentage, setPercentage] = useState(0)
+  // const [loader, setLoader] = useState(false)
+  // const [percentage, setPercentage] = useState(0)
   const [url] = useState('ws://localhost:3334')
   const [wsConnection, setWsConnection] = useState(null)
-  const {
-    isModalOpen, setIsModalOpen, content, setContent, closeModalClickHandler,
-  } = useModalWindow()
+  const { setIsModalOpen, setContent } = useModalWindow()
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  const onBackClickHandler = () => {
+    navigate('/analyze')
+  }
 
   const resetFunction = () => {
     setSelectedFiles([])
@@ -36,7 +38,7 @@ export function MakeOutputFilePage() {
   }
 
   const makeWebSocketFetch = () => {
-    setLoader(true)
+    // setLoader(true)
     wsConnection.send(JSON.stringify(body))
   }
 
@@ -48,55 +50,71 @@ export function MakeOutputFilePage() {
     if (wsConnection) {
       wsConnection.onmessage = (message) => {
         if (parseFloat(message.data)) {
-          setPercentage(parseFloat(message.data))
+          // setPercentage(parseFloat(message.data))
         } else if (message.data === '"done"') {
           setIsModalOpen(true)
           setContent(<Button buttonName="Done" onClickFunction={resetFunction} />)
-          // resetFunction()
-          setLoader(false)
+          // setLoader(false)
         }
-        //  else {
-        //   console.log(message.data)
-        // }
       }
     }
   }, [wsConnection])
 
-  if (!loader) {
-    return (
-      <>
-        <Modal
-          isOpen={isModalOpen}
-          closeModal={closeModalClickHandler}
-        >
-          {content}
-        </Modal>
-        <div className={style.finalButtons}>
-          {wsConnection
-            ? (
-              <Button
-                buttonName="Make output files"
-                onClickFunction={makeWebSocketFetch}
-              />
-            ) : null}
-        </div>
-      </>
-    )
-  }
+  // if (!loader) {
+  //   return (
+  //     <>
+  //       <Modal
+  //         isOpen={isModalOpen}
+  //         closeModal={closeModalClickHandler}
+  //       >
+  //         {content}
+  //       </Modal>
+  //       <div className={style.finalButtons}>
+  //         {wsConnection
+  //           ? (
+  //             <Button
+  //               buttonName="Make output files"
+  //               onClickFunction={makeWebSocketFetch}
+  //             />
+  //           ) : null}
+  //       </div>
+  //     </>
+  //   )
+  // }
 
-  if (loader) {
+  // if (loader) {
+  //   return (
+  //     <>
+  //       <br />
+  //       <ProgressBar
+  //         name="Reading files"
+  //         filled={percentage}
+  //       />
+  //     </>
+  //   )
+  // }
+
+  if (wsConnection && Object.keys(body).length > 0) {
     return (
-      <>
-        <br />
-        <ProgressBar
-          name="Reading files"
-          filled={percentage}
+      <div className={style.container}>
+        <Button
+          buttonName="Back"
+          onClickFunction={onBackClickHandler}
         />
-      </>
+        <Button
+          buttonName="Make output files"
+          onClickFunction={makeWebSocketFetch}
+        />
+      </div>
     )
   }
 
   return (
-    <Link to="/">Go back</Link>
+    <div className={style.container}>
+      <Button
+        buttonName="Back"
+        onClickFunction={onBackClickHandler}
+      />
+    </div>
   )
 }
