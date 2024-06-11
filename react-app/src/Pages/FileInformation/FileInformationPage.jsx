@@ -13,6 +13,10 @@ export function FileInformationPage() {
     navigate('/read')
   }
 
+  const onHomeClickHandler = () => {
+    navigate('/')
+  }
+
   if (analyzedFiles.length > 0) {
     return (
       <div className={style.container}>
@@ -25,6 +29,7 @@ export function FileInformationPage() {
     <div className={style.container}>
       <div className={style.buttonsContainer}>
         <Button buttonName="Back" onClickFunction={onBackClickHandler} />
+        <Button buttonName="Home" onClickFunction={onHomeClickHandler} />
       </div>
     </div>
   )

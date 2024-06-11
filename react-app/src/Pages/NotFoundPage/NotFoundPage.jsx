@@ -1,11 +1,18 @@
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { Button } from '../../components/Buttons/Button'
 
 export function Notfoundpage() {
+  const navigate = useNavigate()
+
+  const onHomeClickHandler = () => {
+    navigate('/')
+  }
+
   return (
     <div>
       This page does not exist. Go
       {' '}
-      <Link to="/">home</Link>
+      <Button buttonName="Home" onClickFunction={onHomeClickHandler} />
     </div>
   )
 }

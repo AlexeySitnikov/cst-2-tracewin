@@ -1,5 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useContext, useEffect, useState } from 'react'
+// import { useNavigate } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { SelectedFilesContext } from '../../contexts/SelectedFilesContext'
 import { useModalWindow } from '../../hooks/useModalWindow'
@@ -10,17 +11,15 @@ import { Button } from '../Buttons/Button'
 import { Modal } from '../Modal/Modal'
 import style from './style.module.css'
 import { ProgressBar } from '../ProgressBar/ProgressBar'
+import { resetAnalyzedFiles } from '../../Redux/Slices/analyzedFiles/analyzedFilesSlice'
 
-export function DowloadFiles() {
-  const body = useSelector((store) => store.body)
+export function DowloadFiles({ wsConnection }) {
+  const currentWsConnection = wsConnection
   const { setSelectedFiles } = useContext(SelectedFilesContext)
-
-  const [loader, setLoader] = useState(false)
+  const [loader, setLoader] = useState(true)
   const [percentage, setPercentage] = useState(0)
-  const [url] = useState('ws://localhost:3334')
-  const [wsConnection, setWsConnection] = useState(null)
   const {
-    isModalOpen, setIsModalOpen, content, setContent, closeModalClickHandler,
+    isModalOpen, content, closeModalClickHandler, setIsModalOpen, setContent,
   } = useModalWindow()
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -30,21 +29,13 @@ export function DowloadFiles() {
     dispatch(resetBody())
     dispatch(resetBorders())
     dispatch(resetProgressBar())
+    dispatch(resetAnalyzedFiles())
     navigate('/')
   }
 
-  const makeWebSocketFetch = () => {
-    setLoader(true)
-    wsConnection.send(JSON.stringify(body))
-  }
-
   useEffect(() => {
-    setWsConnection(new WebSocket(url))
-  }, [url])
-
-  useEffect(() => {
-    if (wsConnection) {
-      wsConnection.onmessage = (message) => {
+    if (currentWsConnection) {
+      currentWsConnection.onmessage = (message) => {
         if (parseFloat(message.data)) {
           setPercentage(parseFloat(message.data))
         } else if (message.data === '"done"') {
@@ -54,9 +45,7 @@ export function DowloadFiles() {
         }
       }
     }
-  }, [wsConnection])
-
-  makeWebSocketFetch()
+  }, [currentWsConnection])
 
   if (!loader) {
     return (
@@ -68,12 +57,15 @@ export function DowloadFiles() {
 
   if (loader) {
     return (
-      <div className={style.container}>
-        <br />
-        <ProgressBar
-          name="Reading files"
-          filled={percentage}
-        />
+      <div className={style.Tabs}>
+        <div className={style.container}>
+          <br />
+          <ProgressBar
+            name="Reading files"
+            filled={percentage}
+          />
+        </div>
+
       </div>
     )
   }

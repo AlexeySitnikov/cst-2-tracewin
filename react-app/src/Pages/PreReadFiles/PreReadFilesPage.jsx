@@ -26,11 +26,14 @@ export function PreReadFilesPage() {
           dispatch(setBorderString(makeBordersString(result)))
         })
     }
-
     navigate('/analyze')
   }
 
   const onBackClickButtonFunction = () => {
+    navigate('/')
+  }
+
+  const onHomeClickHandler = () => {
     navigate('/')
   }
 
@@ -64,6 +67,7 @@ export function PreReadFilesPage() {
     <div className={style.container}>
       <div className={style.buttonsContainer}>
         <Button buttonName="Back" onClickFunction={onBackClickButtonFunction} />
+        <Button buttonName="Home" onClickFunction={onHomeClickHandler} />
       </div>
     </div>
   )

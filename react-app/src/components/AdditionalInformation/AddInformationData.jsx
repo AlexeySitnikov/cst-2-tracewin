@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
 import style from './style.module.css'
 import { setBody } from '../../Redux/Slices/body/bodySlice'
 import { ProgressBar } from '../ProgressBar/ProgressBar'
@@ -10,18 +11,22 @@ export function AdditionalInformationData() {
   const progressBar = useSelector((store) => store.progressBar)
   const dispatch = useDispatch()
 
-  if (borderString) {
-    const body = {
-      files: [...analyzedFiles.map((element) => ({
-        name: element.path,
-        linesToBeDeleted: element.linesToBeDeleted,
-        type: element.type,
-      }))],
-      borders: settings.addLimits ? borderString : null,
-      field: settings.field,
+  useEffect(() => {
+    if (borderString) {
+      const body = {
+        files: [...analyzedFiles.map((element) => ({
+          name: element.path,
+          linesToBeDeleted: element.linesToBeDeleted,
+          type: element.type,
+        }))],
+        borders: settings.addLimits ? borderString : null,
+        field: settings.field,
+      }
+      dispatch(setBody(body))
     }
-    dispatch(setBody(body))
+  }, [borderString])
 
+  if (borderString) {
     return (
       <div className={style.additionalInformation}>
         {borderString.split('\n').map((substring) => (

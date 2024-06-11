@@ -24,6 +24,7 @@ const fileServer = () => {
       const {
         files, borders, field,
       } = JSON.parse(m)
+      console.log('get request')
       await mainFunction(getInputFiles(files), borders, field, webSocketServer)
       makeResponce('done', webSocketServer)
     })

@@ -5,6 +5,7 @@ import { SelectedFilesContext } from '../../contexts/SelectedFilesContext'
 import { resetBody } from '../../Redux/Slices/body/bodySlice'
 import { resetBorders } from '../../Redux/Slices/borders/bordersSlice'
 import { resetProgressBar } from '../../Redux/Slices/progressBar/progressBarSlice'
+import { resetAnalyzedFiles } from '../../Redux/Slices/analyzedFiles/analyzedFilesSlice'
 
 export function UploadFiles() {
   const pickerRef = useRef(null)
@@ -20,6 +21,7 @@ export function UploadFiles() {
     dispatch(resetBody())
     dispatch(resetBorders())
     dispatch(resetProgressBar())
+    dispatch(resetAnalyzedFiles())
   }
 
   return (

@@ -14,9 +14,12 @@
     padding: 2rem 1rem;
     color: #E8F0F2;
     border-radius: 2rem;
+    display: flex;
+    justify-content: center;
     @media (max-width: 769px) {
       padding: 2rem 0;
     }
+    
    
   }
    
@@ -154,4 +157,9 @@
   .buttonsContainer{
     display: flex;
     justify-content: center;
+  }
+
+  .Label{
+    margin: auto;
+    font-size: xx-large;
   }
