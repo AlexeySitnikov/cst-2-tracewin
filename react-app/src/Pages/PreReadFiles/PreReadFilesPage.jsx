@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { Tabs } from '../../components/Tabs/Tabs'
 import style from './style.module.css'
-// import { sniffFiles } from '../../components/constrains/sniffFiles'
-// import { setAnalyzedFiles } from '../../Redux/Slices/analyzedFiles/analyzedFilesSlice'
 import { SelectedFilesContext } from '../../contexts/SelectedFilesContext'
 import { Button } from '../../components/Buttons/Button'
 import { analizeBorders } from '../../components/constrains/analizeBorders'
@@ -18,10 +16,7 @@ export function PreReadFilesPage() {
   const { selectedFiles } = useContext(SelectedFilesContext)
   const analyzedFiles = useSelector((store) => store.analyzedFiles)
   const borderString = useSelector((store) => store.borders)
-  // const settings = useSelector((store) => store.settings)
   const dispatch = useDispatch()
-  // const stringsToSniff = (Number.isFinite(settings.linesToBePreload)
-  // && settings.linesToBePreload > 0) ? settings.linesToBePreload : 5
   const navigate = useNavigate()
   const {
     isModalOpen, content, closeModalClickHandler, setIsModalOpen, setContent,
@@ -49,22 +44,6 @@ export function PreReadFilesPage() {
   const onHomeClickHandler = () => {
     navigate('/')
   }
-
-  // useEffect(() => {
-  //   async function functionToSniffFiles() {
-  //     const responce = await sniffFiles({ selectedFiles, stringsToSniff })
-  //     return responce
-  //   }
-  //   if (selectedFiles.length > 0) {
-  //     functionToSniffFiles().then(
-  //       (result) => {
-  //         const selectedFilesNames = Array.from(selectedFiles)
-  // .map((element) => (element.file.name))
-  //         dispatch(setAnalyzedFiles({ selectedFilesNames, result }))
-  //       },
-  //     )
-  //   }
-  // }, [...selectedFiles, settings.linesToBePreload])
 
   if (selectedFiles.length > 0) {
     return (

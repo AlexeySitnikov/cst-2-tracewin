@@ -13,6 +13,9 @@ export function FileInformationHeader({ file }) {
   const onChangeLinesToBePreloadHandler = (e) => {
     e.preventDefault()
     e.stopPropagation()
+    if (Number(e.target.value) === 0) {
+      console.log('alert')
+    }
     dispatch(changeLinesToBePreloaded(Number(e.target.value)))
   }
 
