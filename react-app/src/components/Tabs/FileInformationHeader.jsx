@@ -1,6 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux'
 import style from './style.module.css'
 import { changeLinesToBePreloaded } from '../../Redux/Slices/setings/settingsSlice'
+import { setFilesOrder, setNumberOfDeletedStrings } from '../../Redux/Slices/analyzedFiles/analyzedFilesSlice'
+import { resetBorders } from '../../Redux/Slices/borders/bordersSlice'
+import { resetBody } from '../../Redux/Slices/body/bodySlice'
+import { resetProgressBar } from '../../Redux/Slices/progressBar/progressBarSlice'
 
 export function FileInformationHeader({ file }) {
   const settings = useSelector((store) => store.settings)
@@ -9,7 +13,26 @@ export function FileInformationHeader({ file }) {
   const onChangeLinesToBePreloadHandler = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    dispatch(changeLinesToBePreloaded(e.target.value))
+    dispatch(changeLinesToBePreloaded(Number(e.target.value)))
+  }
+
+  const onChangeLinesToBeDeletedHandler = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    const linesToBeDeleted = Number(e.target.value)
+    const fileName = file.file
+    dispatch(setNumberOfDeletedStrings({ linesToBeDeleted, fileName }))
+  }
+
+  const onChangeFilesOrderHandler = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    const fileOrder = Number(e.target.value)
+    const fileName = file.file
+    dispatch(setFilesOrder({ fileOrder, fileName }))
+    dispatch(resetBorders())
+    dispatch(resetBody())
+    dispatch(resetProgressBar())
   }
 
   return (
@@ -27,6 +50,7 @@ export function FileInformationHeader({ file }) {
             max="100"
             lang="en-US"
             defaultValue={file.fileOrder}
+            onChange={onChangeFilesOrderHandler}
           />
         </label>
       </div>
@@ -59,6 +83,7 @@ export function FileInformationHeader({ file }) {
             max="100"
             defaultValue={file.linesToBeDeleted}
             lang="en-US"
+            onChange={onChangeLinesToBeDeletedHandler}
           />
         </label>
 
