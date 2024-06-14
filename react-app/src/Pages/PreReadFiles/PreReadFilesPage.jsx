@@ -1,16 +1,20 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { useContext } from 'react'
+import { useContext, useEffect } from 'react'
 import { Tabs } from '../../components/Tabs/Tabs'
 import style from './style.module.css'
 import { SelectedFilesContext } from '../../contexts/SelectedFilesContext'
 import { Button } from '../../components/Buttons/Button'
 import { analizeBorders } from '../../components/constrains/analizeBorders'
-import { setBorderString } from '../../Redux/Slices/borders/bordersSlice'
+import { resetBorders, setBorderString } from '../../Redux/Slices/borders/bordersSlice'
 import { makeBordersString } from '../../components/constrains/makeBordersString'
 import { hasFilesOrderDublicates } from '../../components/constrains/hasFilesOrderDublicates'
 import { Modal } from '../../components/Modal/Modal'
 import { useModalWindow } from '../../hooks/useModalWindow'
+import { reSniffFiles } from '../../components/constrains/reSniffFiles'
+import { Loader } from '../../components/Loader/Loader'
+import { resetBody } from '../../Redux/Slices/body/bodySlice'
+import { resetProgressBar } from '../../Redux/Slices/progressBar/progressBarSlice'
 
 export function PreReadFilesPage() {
   const { selectedFiles } = useContext(SelectedFilesContext)
@@ -21,6 +25,7 @@ export function PreReadFilesPage() {
   const {
     isModalOpen, content, closeModalClickHandler, setIsModalOpen, setContent,
   } = useModalWindow()
+  const settings = useSelector((store) => store.settings)
 
   const onNextClickButtonFunction = () => {
     if (!hasFilesOrderDublicates({ analyzedFiles })) {
@@ -32,6 +37,9 @@ export function PreReadFilesPage() {
       }
       navigate('/analyze')
     } else {
+      dispatch(resetBorders())
+      dispatch(resetBody())
+      dispatch(resetProgressBar())
       setIsModalOpen(true)
       setContent(<Button buttonName="Files have dublicated order" onClickFunction={closeModalClickHandler} />)
     }
@@ -42,10 +50,14 @@ export function PreReadFilesPage() {
   }
 
   const onHomeClickHandler = () => {
-    navigate('/')
+    onBackClickButtonFunction()
   }
 
-  if (selectedFiles.length > 0) {
+  useEffect(() => {
+    reSniffFiles({ dispatch, selectedFiles, settings })
+  }, [settings.linesToBePreload])
+
+  if (analyzedFiles.length > 0) {
     return (
       <div className={style.container}>
         <Modal isOpen={isModalOpen} closeModal={closeModalClickHandler}>
@@ -61,6 +73,7 @@ export function PreReadFilesPage() {
   }
   return (
     <div className={style.container}>
+      {selectedFiles.length > 0 ? <Loader /> : null}
       <div className={style.buttonsContainer}>
         <Button buttonName="Back" onClickFunction={onBackClickButtonFunction} />
         <Button buttonName="Home" onClickFunction={onHomeClickHandler} />

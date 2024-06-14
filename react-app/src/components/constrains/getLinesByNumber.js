@@ -1,13 +1,8 @@
-// import { useContext } from 'react'
 import { TxtReader } from 'txt-reader'
-// import { useDispatch } from 'react-redux'
-// import { SelectedFilesContext } from '../../contexts/SelectedFilesContext'
 import { setProgressBar } from '../../Redux/Slices/progressBar/progressBarSlice'
 
 export function getLinesByNumber(selectedFiles, file, index, dispatch) {
-  // const { selectedFiles } = useContext(SelectedFilesContext)
   const currentIndex = selectedFiles.findIndex((el) => el.file.name === file.file)
-  // const dispatch = useDispatch()
 
   return (
     new Promise((resolve, reject) => {
@@ -18,7 +13,6 @@ export function getLinesByNumber(selectedFiles, file, index, dispatch) {
       reader.loadFile(selectedFiles[currentIndex].file).progress((progress) => {
         if (index === 0) {
           dispatch(setProgressBar(Math.round(progress)))
-          // console.log(Math.round(progress))
         }
       })
         .then((r) => {
@@ -39,7 +33,6 @@ export function getLinesByNumber(selectedFiles, file, index, dispatch) {
             reader.getLines(startLine, Math.round(lineCount / 10))
               .progress((progress) => (
                 dispatch(setProgressBar(Math.round(progress)))
-                // console.log(Math.round(progress))
               ))
               .then((lines) => {
                 responce = { ...responce, lines }
