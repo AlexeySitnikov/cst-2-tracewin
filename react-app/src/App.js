@@ -9,17 +9,19 @@ import { SelectedFilesProvider } from './contexts/SelectedFilesContext'
 
 function App() {
   return (
-    <SelectedFilesProvider>
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route path="/" element={<MainPage />} />
-          <Route path="read" element={<PreReadFilesPage />} />
-          <Route path="analyze" element={<FileInformationPage />} />
-          <Route path="make" element={<MakeOutputFilePage />} />
-          <Route path="*" element={<Notfoundpage />} />
-        </Route>
-      </Routes>
-    </SelectedFilesProvider>
+    <div>
+      <SelectedFilesProvider>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="/" element={<MainPage />} />
+            <Route path="read" element={<PreReadFilesPage />} />
+            <Route path="analyze" element={<FileInformationPage />} />
+            <Route path="make" element={<MakeOutputFilePage />} />
+            <Route path="*" element={<Notfoundpage />} />
+          </Route>
+        </Routes>
+      </SelectedFilesProvider>
+    </div>
   )
 }
 

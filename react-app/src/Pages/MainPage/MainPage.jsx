@@ -11,7 +11,6 @@ export function MainPage() {
   const { selectedFiles } = useContext(SelectedFilesContext)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  console.log('render mainPage')
 
   const settings = useSelector((store) => store.settings)
 
