@@ -24,7 +24,7 @@ export function AdditionalInformationData() {
       }
       dispatch(setBody(body))
     }
-  }, [borderString])
+  }, [borderString, settings])
 
   if (borderString) {
     return (

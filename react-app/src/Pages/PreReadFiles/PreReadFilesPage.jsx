@@ -17,7 +17,6 @@ import { resetBody } from '../../Redux/Slices/body/bodySlice'
 import { resetProgressBar } from '../../Redux/Slices/progressBar/progressBarSlice'
 
 export function PreReadFilesPage() {
-  console.log(window.location)
   const { selectedFiles } = useContext(SelectedFilesContext)
   const analyzedFiles = useSelector((store) => store.analyzedFiles)
   const borderString = useSelector((store) => store.borders)
