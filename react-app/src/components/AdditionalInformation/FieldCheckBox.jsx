@@ -4,6 +4,7 @@ import { changeField } from '../../Redux/Slices/setings/settingsSlice'
 
 export function FieldCheckBox() {
   const settings = useSelector((store) => store.settings)
+  const type = useSelector((store) => store.analyzedFiles)
   const dispatch = useDispatch()
 
   const onChangeCheckBoxHandler = () => {
@@ -21,7 +22,7 @@ export function FieldCheckBox() {
       <p>
         <label htmlFor="BField">
           <input type="checkbox" id="BField" onChange={onChangeCheckBoxHandler} checked={settings.field === 'BField'} />
-          B field
+          {type[0].type === 'EM' ? 'D field' : 'B field'}
         </label>
       </p>
     </div>

@@ -22,6 +22,7 @@ export function AdditionalInformationData() {
         borders: settings.addLimits ? borderString : null,
         field: settings.field,
       }
+      console.log(body)
       dispatch(setBody(body))
     }
   }, [borderString, settings])

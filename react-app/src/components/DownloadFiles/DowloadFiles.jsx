@@ -65,7 +65,6 @@ export function DowloadFiles({ wsConnection }) {
             filled={percentage}
           />
         </div>
-
       </div>
     )
   }

@@ -39,5 +39,25 @@ export async function analizeBorders(selectedFiles, files, dispatch) {
       type: fullXYZ[0].type,
     })
   }
+  if (fullXYZ[0].type === 'EM') {
+    return ({
+      Xmin: Number(fullXYZ[0].result[0].value.trim().replace(/\s\s+/g, ' ').split(' ')[0]),
+      Xmax: fullXYZ[1]
+        ? Number(fullXYZ[1].result[1].value.trim().replace(/\s\s+/g, ' ').split(' ')[0])
+        : Number(fullXYZ[0].result[1].value.trim().replace(/\s\s+/g, ' ').split(' ')[0]),
+      deltaX: detlas.deltaX,
+      Ymin: Number(fullXYZ[0].result[0].value.trim().replace(/\s\s+/g, ' ').split(' ')[1]),
+      Ymax: fullXYZ[1]
+        ? Number(fullXYZ[1].result[1].value.trim().replace(/\s\s+/g, ' ').split(' ')[1])
+        : Number(fullXYZ[0].result[1].value.trim().replace(/\s\s+/g, ' ').split(' ')[1]),
+      deltaY: detlas.deltaY,
+      Zmin: Number(fullXYZ[0].result[0].value.trim().replace(/\s\s+/g, ' ').split(' ')[2]),
+      Zmax: fullXYZ[1]
+        ? Number(fullXYZ[1].result[1].value.trim().replace(/\s\s+/g, ' ').split(' ')[2])
+        : Number(fullXYZ[0].result[1].value.trim().replace(/\s\s+/g, ' ').split(' ')[2]),
+      deltaZ: detlas.deltaZ,
+      type: fullXYZ[0].type,
+    })
+  }
   return 'unknown'
 }

@@ -15,7 +15,11 @@ const writeOutputFiles = (
     Ex, Ey, Ez, E,
   } = getNamesOfTempFiles(files, tempDirectory)
   if ((Ex.length > 0) && (Ey.length > 0) && (Ez.length > 0)) {
-    if (field === 'EField') {
+    if (files[0].type === 'EM'){
+      writeOutputFile(Ex, `${currentDirectory}\\E.esx`, startWriteTime, addInformation)
+      writeOutputFile(Ey, `${currentDirectory}\\E.esy`, startWriteTime, addInformation)
+      writeOutputFile(Ez, `${currentDirectory}\\E.esz`, startWriteTime, addInformation)
+    } else if (field === 'EField') {
       writeOutputFile(Ex, `${currentDirectory}\\E.edx`, startWriteTime, addInformation)
       writeOutputFile(Ey, `${currentDirectory}\\E.edy`, startWriteTime, addInformation)
       writeOutputFile(Ez, `${currentDirectory}\\E.edz`, startWriteTime, addInformation)

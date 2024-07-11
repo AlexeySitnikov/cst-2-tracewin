@@ -17,6 +17,9 @@ export function sniffFile(file, index, stringsToSniff) {
           } else if (responce.result[stringsToSniff - 1].trim().replace(/\s\s+/g, ' ').split(' ').length === 9) {
             type = '3D'
             linesToBeDeleted = 2
+          } else if (responce.result[stringsToSniff - 1].trim().replace(/\s\s+/g, ' ').split(' ').length === 6) {
+            type = 'EM'
+            linesToBeDeleted = 2
           } else { type = 'unknown' }
           resolve({
             name: file.file.name,
