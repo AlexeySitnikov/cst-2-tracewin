@@ -22,9 +22,9 @@ const fileServer = () => {
   webSocketServer.on('connection', (ws) => {
     ws.on('message', async (m) => {
       const {
-        files, borders, field
+        files, borders, field, fileExtension,
       } = JSON.parse(m)
-      await mainFunction(getInputFiles(files), borders, field, webSocketServer)
+      await mainFunction(getInputFiles(files), borders, field, fileExtension, webSocketServer)
       makeResponce('done', webSocketServer)
     })
 

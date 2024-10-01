@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { exportFileExtension } from '../../../components/constrains/exportFileExtension'
 
 export const settingsSlice = createSlice({
   name: 'settings',
@@ -6,6 +7,7 @@ export const settingsSlice = createSlice({
     field: 'EField',
     linesToBePreload: 5,
     addLimits: true,
+    fileExtension: exportFileExtension.staticElectricField,
   },
 
   reducers: {
@@ -33,11 +35,17 @@ export const settingsSlice = createSlice({
         linesToBePreload: action.payload,
       }
     },
+    changeExportFileExtension(state, action) {
+      return {
+        ...state,
+        fileExtension: exportFileExtension[action.payload],
+      }
+    },
   },
 })
 
 export const {
-  changeField, changeAddLimits, changeLinesToBePreloaded,
+  changeField, changeAddLimits, changeLinesToBePreloaded, changeExportFileExtension,
 } = settingsSlice.actions
 
 export const settingsReducer = settingsSlice.reducer

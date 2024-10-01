@@ -116,6 +116,7 @@
   .EOrBFieldCheckBox{
     display: flex;
     justify-content: space-evenly;
+    visibility: hidden;
   }
 
   .EOrBFieldCheckBox input{
@@ -151,6 +152,11 @@
   }
 
   .container{
+    display: flex;
+    justify-content: center;
+  }
+
+  .selectOption{
     display: flex;
     justify-content: center;
   }

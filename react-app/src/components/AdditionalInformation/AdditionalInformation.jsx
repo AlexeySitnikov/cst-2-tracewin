@@ -6,6 +6,7 @@ import { FieldCheckBox } from './FieldCheckBox'
 import { AdditionalInformationCheckBox } from './AdditionalInformationCheckBox'
 import { AdditionalInformationData } from './AddInformationData'
 import { Button } from '../Buttons/Button'
+import { ExportFileExtension } from './ExportFileExtension'
 
 export function AdditionalInformation() {
   const borderString = useSelector((store) => store.borders)
@@ -36,6 +37,8 @@ export function AdditionalInformation() {
         <AdditionalInformationCheckBox />
         <br />
         <FieldCheckBox />
+        <br />
+        <ExportFileExtension />
         <br />
         <AdditionalInformationData />
       </div>

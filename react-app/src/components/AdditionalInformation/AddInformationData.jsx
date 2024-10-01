@@ -21,8 +21,8 @@ export function AdditionalInformationData() {
         }))],
         borders: settings.addLimits ? borderString : null,
         field: settings.field,
+        fileExtension: settings.fileExtension,
       }
-      console.log(body)
       dispatch(setBody(body))
     }
   }, [borderString, settings])
